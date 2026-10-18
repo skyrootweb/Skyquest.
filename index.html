@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyQuest | Learn, Play & Level Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <h2 class="logo">🚀 SkyQuest</h2>
+
+    <nav>
+        <a href="#" class="nav-link active" data-page="home">🏠 Home</a>
+        <a href="#" class="nav-link" data-page="quiz">🎯 Play Quiz</a>
+        <a href="#" class="nav-link" data-page="aiTutor">🤖 AI Tutor</a>
+        <a href="#" class="nav-link" data-page="battle">⚔️ Battle Mode</a>
+        <a href="#" class="nav-link" data-page="progress">📊 My Progress</a>
+        <a href="#" class="nav-link" data-page="leaderboard">🏆 Leaderboard</a>
+        <a href="#" class="nav-link" data-page="achievements">🎖️ Achievements</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <span>🚀 Keep Going!</span>
+        <p>Every question brings you closer to your goals.</p>
+    </div>
+</aside>
+
+<main class="main-content">
+
+<header class="topbar">
+    <div>
+        <p class="muted">WELCOME BACK, PLAYER</p>
+        <h1>Hey, Champion! 👋</h1>
+        <p class="muted">Ready to level up your knowledge?</p>
+    </div>
+
+    <div class="player-level">
+        <span>⭐ Level 1</span>
+        <div class="xp-bar"><div></div></div>
+        <small>0 / 100 XP</small>
+    </div>
+</header>
+
+<!-- HOME -->
+<section id="home" class="page">
+    <div class="stats">
+        <div class="stat-card purple">
+            <span>⭐ Total XP</span>
+            <h2 id="totalXP">0</h2>
+        </div>
+
+        <div class="stat-card green">
+            <span>🏆 Quizzes Played</span>
+            <h2 id="quizCount">0</h2>
+        </div>
+
+        <div class="stat-card orange">
+            <span>🎯 Accuracy</span>
+            <h2 id="accuracy">0%</h2>
+        </div>
+
+        <div class="stat-card pink">
+            <span>🔥 Best Score</span>
+            <h2 id="bestScore">0</h2>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div>
+            <span class="badge">YOUR NEXT ADVENTURE</span>
+            <h2>Ready for a new challenge?</h2>
+            <p>Choose a subject, test your knowledge and earn XP!</p>
+
+            <button class="primary-btn" onclick="showPage('quiz')">
+                Start Playing →
+            </button>
+        </div>
+
+        <div class="hero-icon">🌌</div>
+    </section>
+
+    <h2 class="section-title">⚡ Quick Actions</h2>
+
+    <div class="quick-actions">
+        <button onclick="showPage('quiz')">🧠 Play Quiz</button>
+        <button onclick="showPage('aiTutor')">🤖 Ask AI Tutor</button>
+        <button onclick="showPage('battle')">⚔️ Battle Mode</button>
+        <button onclick="showPage('leaderboard')">🏆 Leaderboard</button>
+    </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="page hidden">
+
+    <h2 class="section-title">🎯 Choose Your Challenge</h2>
+
+    <p class="muted">
+        Select a subject and difficulty to start your quest.
+    </p>
+
+    <div class="feature-card" style="margin:20px 0">
+        <label for="quizDifficulty">Choose Difficulty</label>
+
+        <select id="quizDifficulty" class="ai-quiz-select">
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select>
+
+        <p class="muted">
+            Each quiz contains up to 10 questions.
+        </p>
+
+        <p id="questionBankStatus" class="muted" role="status">
+            Loading question bank...
+        </p>
+    </div>
+
+    <div class="subject-grid">
+
+        <button class="subject-card" onclick="startQuiz('C Programming')">
+            <span>💻</span>
+            <h3>C Programming</h3>
+            <p>Logic & coding</p>
+        </button>
+
+        <button class="subject-card" onclick="startQuiz('Python')">
+            <span>🐍</span>
+            <h3>Python</h3>
+            <p>Programming basics</p>
+        </button>
+
+        <button class="subject-card" onclick="startQuiz('Mathematics')">
+            <span>📐</span>
+            <h3>Mathematics</h3>
+            <p>Numbers & logic</p>
+        </button>
+
+        <button class="subject-card" onclick="startQuiz('Science')">
+            <span>🔬</span>
+            <h3>Science</h3>
+            <p>Explore concepts</p>
+        </button>
+
+    </div>
+
+    <div id="quizArea" class="quiz-box hidden"></div>
+</section>
+
+<!-- AI TUTOR -->
+<section id="aiTutor" class="page hidden">
+    <div class="feature-card">
+        <span class="big-icon">🤖</span>
+
+        <h2>SkyQuest AI Tutor</h2>
+
+        <p>Ask questions and learn concepts in simple language.</p>
+
+        <textarea
+            id="aiQuestion"
+            placeholder="Ask anything about your studies..."
+            rows="4"
+            style="width:100%;box-sizing:border-box;margin:15px 0;padding:12px"
+        ></textarea>
+
+        <button
+            class="primary-btn"
+            id="askAIButton"
+            onclick="askSkyQuestAI()"
+        >
+            Ask SkyQuest AI →
+        </button>
+
+        <p id="aiAnswer" style="white-space:pre-wrap;margin-top:20px"></p>
+    </div>
+</section>
+
+<!-- BATTLE -->
+<section id="battle" class="page hidden">
+    <div class="feature-card">
+        <span class="big-icon">⚔️</span>
+        <h2>Battle Mode</h2>
+        <p>Challenge yourself to answer questions against the clock!</p>
+        <p class="muted">Battle Mode is coming soon.</p>
+
+        <button class="primary-btn" onclick="showPage('quiz')">
+            Practice First →
+        </button>
+    </div>
+</section>
+
+<!-- PROGRESS -->
+<section id="progress" class="page hidden">
+    <div class="feature-card">
+        <span class="big-icon">📊</span>
+        <h2>Your Progress</h2>
+        <p>Track your quiz scores and experience points.</p>
+
+        <h3 id="progressXP">Total XP: 0</h3>
+        <h3 id="progressQuizzes">Quizzes Played: 0</h3>
+        <h3 id="progressAccuracy">Accuracy: 0%</h3>
+    </div>
+</section>
+
+<!-- LEADERBOARD -->
+<section id="leaderboard" class="page hidden">
+    <div class="feature-card">
+        <span class="big-icon">🏆</span>
+        <h2>Leaderboard</h2>
+        <p>Your personal score will appear here as you play.</p>
+
+        <div class="leader-row">
+            <span>🥇 You</span>
+            <strong id="leaderXP">0 XP</strong>
+        </div>
+    </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements" class="page hidden">
+    <h2 class="section-title">🎖️ Achievements</h2>
+
+    <div class="subject-grid">
+        <div class="achievement-card">
+            <span>🌟</span>
+            <h3>First Quest</h3>
+            <p>Complete your first quiz.</p>
+        </div>
+
+        <div class="achievement-card">
+            <span>🔥</span>
+            <h3>Getting Started</h3>
+            <p>Earn your first 50 XP.</p>
+        </div>
+
+        <div class="achievement-card">
+            <span>🧠</span>
+            <h3>Quick Thinker</h3>
+            <p>Answer questions correctly.</p>
+        </div>
+
+        <div class="achievement-card">
+            <span>👑</span>
+            <h3>Champion</h3>
+            <p>Keep improving your score.</p>
+        </div>
+    </div>
+</section>
+
+<footer>SkyQuest © 2026 · Learn, Play & Level Up 🚀</footer>
+
+</main>
+
+<script src="script.js"></script>
+
+<script>
+async function askSkyQuestAI() {
+    var input = document.getElementById("aiQuestion");
+    var answer = document.getElementById("aiAnswer");
+    var button = document.getElementById("askAIButton");
+
+    var message = input.value.trim();
+
+    if (!message) {
+        answer.textContent = "Please enter a question first.";
+        return;
+    }
+
+    button.disabled = true;
+    answer.textContent = "SkyQuest AI is thinking...";
+
+    try {
+        var response = await fetch("/api/ai", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: message })
+        });
+
+        var data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.error || "AI request failed.");
+        }
+
+        answer.textContent = data.answer;
+
+    } catch (error) {
+        answer.textContent =
+            "Unable to contact AI. Please check that the SkyQuest server is running.";
+    } finally {
+        button.disabled = false;
+    }
+}
+</script>
+
+</body>
+</html>

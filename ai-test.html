@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SkyQuest AI Test</title>
+    <style>
+        body {
+            background: #101326;
+            color: white;
+            font-family: Arial;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        input, button {
+            padding: 12px;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #7655ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #answer {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 SkyQuest AI</h1>
+    <p>Ask anything about your studies!</p>
+
+    <input id="question" placeholder="Ask a question..." />
+
+    <button onclick="askAI()">Ask SkyQuest AI</button>
+
+    <div id="answer"></div>
+
+    <script>
+        async function askAI() {
+            var question = document.getElementById("question").value;
+            var answer = document.getElementById("answer");
+
+            if (!question.trim()) {
+                answer.textContent = "Please enter a question.";
+                return;
+            }
+
+            answer.textContent = "AI is thinking...";
+
+            try {
+                var response = await fetch("/api/ai", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: question
+                    })
+                });
+
+                var data = await response.json();
+
+                if (data.success) {
+                    answer.textContent =
+                        data.answer + "\n\nProvider: " + data.provider;
+                } else {
+                    answer.textContent = "Error: " + data.error;
+                }
+            } catch (error) {
+                answer.textContent = "Could not connect to SkyQuest server.";
+            }
+        }
+    </script>
+
+</body>
+</html>
